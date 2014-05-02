@@ -1,0 +1,56 @@
+<t:container 
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+
+						<div class="clearfix"/>
+					    <nav class="navbar navbar-default navbar-static-side" ng-class="navStyle" role="navigation">
+					
+					        <div class="navbar-header">
+								<button type="button" class="navbar-toggle btn navbar-btn" ng-init="horizontalNavCollapsed = true" ng-click="horizontalNavCollapsed = !horizontalNavCollapsed">
+								 <span class="sr-only">${message:menu-toggleNavigation}</span>
+								 <span class="icon-bar"></span>
+								 <span class="icon-bar"></span>
+								 <span class="icon-bar"></span>
+					            </button>
+					        </div>
+												
+					        <div collapse="horizontalNavCollapsed" class="navbar-collapse collapse navbar-responsive-collapse">
+					            <div class="panel-heading text-center"><strong>${message:sideBar-label}</strong></div>
+					            <div class="panel-heading"/>
+					            <ul class="nav nav-pills nav-stacked">
+					            	
+					            	<!-- Home Link -->
+					            	<li class="active2">
+					            		<a t:type="PageLink" t:page="admin/Index"><span class="glyphicon glyphicon-home"/> ${message:menu-home}</a>
+					            	</li>
+					            	
+					            	<!-- Admin Users -->
+					                <li class="dropdown">
+					                	<a ng-init="navUserCollapsed = true" ng-click="navUserCollapsed = !navUserCollapsed"><span class="glyphicon glyphicon-folder-open"/> ${message:menu-adminUsers} <b class="caret"></b></a>
+					   						<ul class="list-unstyled" collapse="navUserCollapsed">
+												<li><a t:type="PageLink" t:page="admin/users/CreateUser"><span class="glyphicon glyphicon-plus"></span> ${message:menu-adminCreateUser}</a></li>
+												<li><a t:type="PageLink" t:page="admin/users/ListUsers"><span class="glyphicon glyphicon-list"></span> ${message:menu-adminListUsers}</a></li>
+												<li><a t:type="PageLink" t:page="admin/users/FindUsers"><span class="glyphicon glyphicon-search"></span> ${message:menu-adminFindUsers}</a></li>
+											</ul>									
+									</li>			
+
+									<!-- Help us -->
+									<li>
+					            		<a t:type="PageLink" t:page="Help"><span class="glyphicon glyphicon-question-sign"/> ${message:menu-help}</a>
+					            	</li>									
+									
+									<!-- About us -->
+									<li>
+					            		<a t:type="PageLink" t:page="About"><span class="glyphicon glyphicon-info-sign"/> ${message:menu-about}</a>
+					            	</li>
+
+									<!-- Terms -->
+									<li>
+					            		<a t:type="PageLink" t:page="Terms"><span class="glyphicon glyphicon-book"/> ${message:menu-terms}</a>
+					            	</li>
+										
+								</ul>	
+					        </div><!-- horizontalNavCollapsed -->
+					        <div class="clearfix"/>
+					    </nav>		    
+
+</t:container>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html
+    xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+    xmlns:p="tapestry:parameter"
+    lang="${lang}"
+    ng-app="${myApp}">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+	<link rel="shortcut icon" href="${context:/img/favicon.ico}"/>
+
+	<title>${message:header} - ${pageTitle}</title>
+
+<!-- Tapestry 5.4 beta integrate twitter bootstrap 3, if you want use a CDN you mush change your tapestry configuration and uncomment the next line -->
+<!--<link rel="stylesheet" href="${externalBootstrapCss}" />-->
+
+	<link rel="stylesheet" href="${externalBootstrapTheme}" />
+	<link rel="stylesheet" href="${context:/css/layout.css}" />	
+
+<!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+</head>
+	<body>
+
+			<!-- Header -->
+			<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+			<div class="container-fluid">
+		      <header class="navbar-header" role="banner">
+			    <button type="button" class="navbar-toggle btn navbar-btn" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+			     <span class="sr-only">${message:menu-userToggleNavigation}</span>
+			     <span class="icon-bar"></span>
+			     <span class="icon-bar"></span>
+			     <span class="icon-bar"></span>
+			    </button>			    
+					<a class="navbar-brand" t:type="PageLink" t:page="Index"><img style="margin-top:-7px;" src="${context:/img/logo-32x32.png}" /> ${message:header}</a>					
+		      </header>
+		      <div collapse="navCollapsed" class="navbar-collapse collapse navbar-responsive-collapse">
+	          <ul class="nav navbar-nav navbar-right">
+				<t:if test="userSession">
+					<!-- var in AngularJS -->
+					<div ng-init="userSession=true"/>
+					<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"/> ${userSession.firstName} <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a t:type="PageLink" t:page="user/UpdateProfile"><span class="glyphicon glyphicon-edit"/> ${message:menu-updateProfile}</a></li>
+							<li><a t:type="PageLink" t:page="user/ChangePassword"><span class="glyphicon glyphicon-lock"/> ${message:menu-changePassword}</a></li>
+						</ul>
+					</li>
+					<li><a t:type="PagenLink" t:id="user/Logout"><span class="glyphicon glyphicon-log-out"/> ${message:menu-logout}</a></li>
+				<p:else>
+				  	<li><a t:type="PageLink" t:page="user/Login"><span class="glyphicon glyphicon-log-in"/> ${message:menu-authenticate}</a></li>
+				  	<li><a t:type="PageLink" t:page="user/Register"><span class="glyphicon glyphicon-pencil"/> ${message:menu-register}</a></li>
+				</p:else>
+				</t:if>
+	          </ul>
+	          </div>
+	        </div>
+			</nav>
+			<!-- End Header -->
+
+			<div class="container-fluid">
+				<div class="row">				
+
+					<div class="col-md-3" ng-class="navStyle">
+						<t:verticalmenupanel/>
+					</div>
+					
+					<section class="col-md-9" ng-class="sectionStyle">
+					
+						<h1 class="page-header">${pageTitle}</h1>
+						<t:if test="menuExplanation">
+		                	<h2 class="sub-header">
+		                        ${menuExplanation}
+		                	</h2>
+		                </t:if>                
+		                		
+						<t:body/>	
+									
+					</section>
+								   
+				    <aside ng-class="asideStyle"></aside>
+				</div>
+			</div>		
+		
+		<footer class="nav-bottom" role="contentinfo">
+			<div class="container">
+				<p>${footerMain}</p>
+				<p>WebUI based on <a target="_blank" href="http://tapestry.apache.org/release-notes-54.html">Tapestry 5.4 beta 3</a>, <a target="_blank" href="http://getbootstrap.com">Twitter Bootstrap</a> and <a target="_blank" href="http://angular-ui.github.io/bootstrap">AngularJS Bootstrap</a>, icons from <a target="_blank" href="http://glyphicons.com/">Glyphicons</a></p>
+			</div>
+		</footer>
+	
+		<!-- Loads CDN from AngularJS and Angular-UI for Bootstrap -->
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.min.js"></script>
+
+		<!-- This is not the best solution. You can create a JavaScriptModuleConfiguration, see commented setupRender method on Layout.java -->
+		<script>angular.module('${myApp}',['ui.bootstrap']);</script>
+	</body>
+</html>
